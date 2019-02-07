@@ -18,11 +18,11 @@ np: node app.js deleteTodo "umyć psa"
 node app.js listTodos  
 Pokarze się lista wszystkich zadań, przykład:
 
-//
+*
 your todo:
 title: umyj samochód
 status: done
-//
+*
 
 *Listowanie zadań po statusie (done, notDone, continues);
 
