@@ -7,31 +7,62 @@ const yargs = require('yargs');
 const todos = require('./todos.js');
 
 const argv = yargs.argv;
-var command = argv._[0];
+const command = argv._[0];
 
 console.log('Your Command: ', command);
 
 if (command === 'addTodo') {
-    todos.addTodo(argv.title);
 
-}else if (command === 'deleteTodo') {
-    var todoDeleted = todos.deleteTodo(argv.title);
-    var message = todoDeleted ? 'Great! Todo was deleted' : 'Whoops! Todo not found';
-    console.log(message);
+    const title = argv._[1];
+    const status = argv._[2];
+
+    todos.addTodo(title, status);
+
+} else if (command === 'deleteTodo') {
+
+    const title = argv._[1];
+
+    const todoToBeDeleted = todos.readTodo(title) ;
+    if (todoToBeDeleted != null) {
+        todos.deleteTodo(title);
+        console.log('todo Deleted');
+    } else {
+        console.log('there is no such todo')
+    }
 
 } else if (command === 'readTodo') {
-    var todo = todos.readTodo(argv.title);
-    if (todo) {
-        console.log('Great! The todo was found.');
-        todos.logTodo(todo);
+
+    const title = argv._[1];
+
+    const todo = todos.readTodo(title);
+    if (todo != null) {
+        console.log('your todo: \ntitle: ' + todo.title + '\nstatus: ' + todo.status);
     } else {
-        console.log('Whoops! The todo was not found.');
+        console.log('there is no such todo');
     }
 
 } else if (command === 'listTodos') {
-    var allTodos = todos.listTodos();
-    console.log(`Printing ${allTodos.length} todo(s).`);
-    allTodos.forEach((todo) => todos.logTodo(todo));
+
+    const allTodos = todos.listTodos();
+    console.log(`Printing ${allTodos.length} todo(s). \n`);
+    allTodos.forEach((todo) => console.log('your todo: \ntitle: ' + todo.title + '\nstatus: ' + todo.status + '\n'));
+
+} else if (command === 'filterTodosByStatus') {
+
+    const status = argv._[1];
+    const filteredTodos = todos.filterTodosByStatus(status);
+    filteredTodos.forEach((todo) => console.log('your todo: \ntitle: ' + todo.title + '\nstatus: ' + todo.status + '\n'));
+
+} else if (command === 'changeStatus') {
+    const title = argv._[1];
+    const status = argv._[2];
+    const change = todos.changeStatus(title, status);
+    console.log(change);
+    // if (change != null) {
+    //     console.log('your todo: \ntitle: ' + todo.title + '\nstatus: ' + todo.status);
+    // } else {
+    //     console.log('there is no such todo to change status');
+    // }
 } else {
-    console.log('Whoops!Invalid command.');
+    console.log('wrong command');
 }
