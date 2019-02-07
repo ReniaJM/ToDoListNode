@@ -50,14 +50,14 @@ const filterTodosByStatus = (status) => {
 };
 
 const changeStatus = (title, status)=> {
-    var todos = fetchTodos();
-    var todosingle = todos.filter((todo) => todo.title === title);
+    let todos = fetchTodos();
+    let todosingle = todos.filter((todo) => todo.title === title);
   
     let singestatus= (todosingle.map(a => a.status));
     console.log(todosingle);
     console.log(singestatus);
     
-    todosingle.singestatus === status;
+    // todosingle.singestatus === status;
     saveTodos(todos);
 }
 
@@ -74,7 +74,7 @@ const fetchTodos = () => {
     }
 };
 
-var saveTodos = (todos) => {
+const saveTodos = (todos) => {
     fs.writeFileSync('allTodos.json', JSON.stringify(todos));
 };
 
