@@ -3,7 +3,6 @@ console.log('Starting app.js');
 const fs = require('fs');
 const _ = require('lodash');
 const yargs = require('yargs');
-
 const todos = require('./todos.js');
 
 const argv = yargs.argv;
@@ -13,16 +12,16 @@ console.log('Your Command: ', command);
 
 if (command === 'addTodo') {
 
-    const title = argv._[1];
-    const status = argv._[2];
+    let title = argv._[1];
+    let status = argv._[2];
 
     todos.addTodo(title, status);
 
 } else if (command === 'deleteTodo') {
 
-    const title = argv._[1];
+    let title = argv._[1];
 
-    const todoToBeDeleted = todos.readTodo(title) ;
+    let todoToBeDeleted = todos.readTodo(title) ;
     if (todoToBeDeleted != null) {
         todos.deleteTodo(title);
         console.log('todo Deleted');
@@ -32,9 +31,9 @@ if (command === 'addTodo') {
 
 } else if (command === 'readTodo') {
 
-    const title = argv._[1];
+    let title = argv._[1];
 
-    const todo = todos.readTodo(title);
+    let todo = todos.readTodo(title);
     if (todo != null) {
         console.log('your todo: \ntitle: ' + todo.title + '\nstatus: ' + todo.status);
     } else {
@@ -43,26 +42,26 @@ if (command === 'addTodo') {
 
 } else if (command === 'listTodos') {
 
-    const allTodos = todos.listTodos();
+    let allTodos = todos.listTodos();
     console.log(`Printing ${allTodos.length} todo(s). \n`);
     allTodos.forEach((todo) => console.log('your todo: \ntitle: ' + todo.title + '\nstatus: ' + todo.status + '\n'));
 
 } else if (command === 'filterTodosByStatus') {
 
-    const status = argv._[1];
-    const filteredTodos = todos.filterTodosByStatus(status);
+    let status = argv._[1];
+    let filteredTodos = todos.filterTodosByStatus(status);
     filteredTodos.forEach((todo) => console.log('your todo: \ntitle: ' + todo.title + '\nstatus: ' + todo.status + '\n'));
 
 } else if (command === 'changeStatus') {
-    const title = argv._[1];
-    const status = argv._[2];
-    const change = todos.changeStatus(title, status);
+    let title = argv._[1];
+    let status = argv._[2];
+    let change = todos.changeStatus(title, status);
     console.log(change);
-    // if (change != null) {
-    //     console.log('your todo: \ntitle: ' + todo.title + '\nstatus: ' + todo.status);
-    // } else {
-    //     console.log('there is no such todo to change status');
-    // }
+    if (change != null) {
+        console.log('your todo: \ntitle: ' + todo.title + '\nstatus: ' + todo.status);
+    } else {
+        console.log('there is no such todo to change status');
+    }
 } else {
     console.log('wrong command');
 }
