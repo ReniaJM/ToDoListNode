@@ -56,8 +56,7 @@ const changeStatus = (title, status)=> {
     let singestatus= (todosingle.map(a => a.status));
     console.log(todosingle);
     console.log(singestatus);
-    
-    // todosingle.singestatus === status;
+    todosingle.singestatus === status;
     saveTodos(todos);
 }
 
@@ -78,7 +77,7 @@ const saveTodos = (todos) => {
     fs.writeFileSync('allTodos.json', JSON.stringify(todos));
 };
 
-// exported functions
+
 module.exports = {
     addTodo,
     deleteTodo,
